@@ -1,5 +1,8 @@
+@import url("https://fonts.googleapis.com/css2?family=Inconsolata&display=swap");
+
 .App {
   text-align: center;
+  font-family: "Inconsolata", monospace;
 }
 
 /* main page items */
@@ -66,14 +69,16 @@ main {
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: repeat(2, auto);
   margin-bottom: 2%;
+  font-size: 1.2rem;
 }
 
 .article_card span {
   padding: 1%;
+  vertical-align: middle;
 }
 
 .article_title {
   text-align: left;
-  font-size: 1.3rem;
+  font-size: 1.4rem;
   grid-column: 1 / 3;
 }
