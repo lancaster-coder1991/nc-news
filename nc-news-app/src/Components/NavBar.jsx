@@ -19,11 +19,7 @@ export default class NavBar extends Component {
   renderNavItems = () => {
     return this.state.topics.map((topic, index) => {
       return (
-        <Link
-          key={index}
-          onClick={this.props.setTopic}
-          to={`/topics/${topic.slug}`}
-        >
+        <Link key={index} to={`/topics/${topic.slug}`}>
           {`${this.props.capitalise(topic.slug)}`}
         </Link>
       );

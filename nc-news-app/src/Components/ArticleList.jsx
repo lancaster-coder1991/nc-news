@@ -11,29 +11,19 @@ export default class ArticleList extends Component {
   };
 
   componentDidMount() {
-    const topicQuery =
-      this.props.selected === "All Articles"
-        ? ""
-        : `topic=${this.props.selected.toLowerCase()}`;
+    const topicQuery = this.props.topic ? `topic=${this.props.topic}` : "";
+    console.log(topicQuery);
     axios
       .get(
         `https://georges-nc-news.herokuapp.com/api/articles?${topicQuery}&sort_by=${this.state.sorting}&order_by=${this.state.order}`
       )
       .then((res) => {
-        this.setState({ articles: res.data.articles }, () => {
-          console.log(this.state.articles);
-        });
+        this.setState({ articles: res.data.articles });
       });
   }
 
   componentDidUpdate(prevProps, prevState) {
-    const topicQuery =
-      this.props.selected === "All Articles"
-        ? ""
-        : `topic=${this.props.selected.toLowerCase()}`;
-    console.log(
-      `topic: ${topicQuery}, sorting: ${this.state.sorting}, order: ${this.state.order}`
-    );
+    const topicQuery = this.props.topic ? `topic=${this.props.topic}` : "";
     if (
       prevProps.selected !== this.props.selected ||
       prevState.sorting !== this.state.sorting ||
@@ -61,6 +51,11 @@ export default class ArticleList extends Component {
     });
   };
 
+  renderTitle = () => {
+    if (this.props.topic) return <h2>{this.props.topic}</h2>;
+    else return <h2>All Articles</h2>;
+  };
+
   updateSorting = (e) => {
     const sorting = e.target.value;
     const selectedOption = Array.from(e.target).filter(
@@ -75,7 +70,7 @@ export default class ArticleList extends Component {
       <main>
         <header id="article_header">
           <SortBy updateSorting={this.updateSorting} />
-          <h2>{`${this.props.capitalise(this.props.selected)}`}</h2>
+          {this.renderTitle()}
         </header>
         {this.renderArticles()}
       </main>

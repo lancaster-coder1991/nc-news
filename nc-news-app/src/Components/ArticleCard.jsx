@@ -16,6 +16,7 @@ export default class ArticleCard extends Component {
             .replace(/:\d{2}\.\d{3}Z/, "")
             .replace("T", "  ")}
         </span>
+        <span>Comments: {this.props.article.comment_count}</span>
         <Votes article={this.props.article} />
       </div>
     );

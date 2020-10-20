@@ -4,7 +4,7 @@ export default class SortBy extends Component {
   render() {
     return (
       <label htmlFor="sort_by">
-        Choose Sorting
+        Sort Articles By:
         <select onChange={this.props.updateSorting} name="sort_by" id="">
           <option value="created_at" className="desc">
             Newest First
@@ -12,7 +12,7 @@ export default class SortBy extends Component {
           <option value="created_at" className="asc">
             Oldest First
           </option>
-          <option value="comments" className="desc">
+          <option value="comment_count" className="desc">
             No. Of Comments
           </option>
           <option value="votes" className="desc">
