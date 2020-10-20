@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { Component } from "react";
 import ArticleCard from "./ArticleCard";
 import SortBy from "./SortBy";
+import { getArticles } from "../axios";
 
 export default class ArticleList extends Component {
   state = {
@@ -11,31 +12,23 @@ export default class ArticleList extends Component {
   };
 
   componentDidMount() {
-    const topicQuery = this.props.topic ? `topic=${this.props.topic}` : "";
-    console.log(topicQuery);
-    axios
-      .get(
-        `https://georges-nc-news.herokuapp.com/api/articles?${topicQuery}&sort_by=${this.state.sorting}&order_by=${this.state.order}`
-      )
-      .then((res) => {
-        this.setState({ articles: res.data.articles });
-      });
+    getArticles(null, this.state.sorting, this.state.order).then((res) => {
+      this.setState({ articles: res.data.articles });
+    });
   }
 
   componentDidUpdate(prevProps, prevState) {
     const topicQuery = this.props.topic ? `topic=${this.props.topic}` : "";
     if (
-      prevProps.selected !== this.props.selected ||
+      prevProps.topic !== this.props.topic ||
       prevState.sorting !== this.state.sorting ||
       prevState.order !== this.state.order
     ) {
-      axios
-        .get(
-          `https://georges-nc-news.herokuapp.com/api/articles?${topicQuery}&sort_by=${this.state.sorting}&order_by=${this.state.order}`
-        )
-        .then((res) => {
+      getArticles(this.props.topic, this.state.sorting, this.state.order).then(
+        (res) => {
           this.setState({ articles: res.data.articles });
-        });
+        }
+      );
     }
   }
 
