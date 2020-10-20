@@ -6,7 +6,7 @@ import SortBy from "./SortBy";
 export default class ArticleList extends Component {
   state = {
     sorting: "created_at",
-    orderby: "desc",
+    order: "desc",
     articles: [],
   };
 
@@ -17,7 +17,7 @@ export default class ArticleList extends Component {
         : `topic=${this.props.selected.toLowerCase()}`;
     axios
       .get(
-        `https://georges-nc-news.herokuapp.com/api/articles?${topicQuery}&sort_by=${this.state.sorting}`
+        `https://georges-nc-news.herokuapp.com/api/articles?${topicQuery}&sort_by=${this.state.sorting}&order_by=${this.state.order}`
       )
       .then((res) => {
         this.setState({ articles: res.data.articles }, () => {
@@ -31,13 +31,17 @@ export default class ArticleList extends Component {
       this.props.selected === "All Articles"
         ? ""
         : `topic=${this.props.selected.toLowerCase()}`;
+    console.log(
+      `topic: ${topicQuery}, sorting: ${this.state.sorting}, order: ${this.state.order}`
+    );
     if (
       prevProps.selected !== this.props.selected ||
-      prevState.sorting !== this.state.sorting
+      prevState.sorting !== this.state.sorting ||
+      prevState.order !== this.state.order
     ) {
       axios
         .get(
-          `https://georges-nc-news.herokuapp.com/api/articles?${topicQuery}&sort_by=${this.state.sorting}`
+          `https://georges-nc-news.herokuapp.com/api/articles?${topicQuery}&sort_by=${this.state.sorting}&order_by=${this.state.order}`
         )
         .then((res) => {
           this.setState({ articles: res.data.articles });
@@ -59,9 +63,11 @@ export default class ArticleList extends Component {
 
   updateSorting = (e) => {
     const sorting = e.target.value;
-    console.log(Array.from(e.target));
-    // console.dir(e.target.filter((option) => option.selected));
-    this.setState({ sorting });
+    const selectedOption = Array.from(e.target).filter(
+      (option) => option.selected
+    )[0];
+    const order = selectedOption.className;
+    this.setState({ sorting, order });
   };
 
   render() {

@@ -6,12 +6,18 @@ export default class SortBy extends Component {
       <label htmlFor="sort_by">
         Choose Sorting
         <select onChange={this.props.updateSorting} name="sort_by" id="">
-          <option value="created_at">Newest First</option>
-          <option value="created_at" data-order_by="asc">
+          <option value="created_at" className="desc">
+            Newest First
+          </option>
+          <option value="created_at" className="asc">
             Oldest First
           </option>
-          <option value="comments">No. Of Comments</option>
-          <option value="votes">Highest Voted</option>
+          <option value="comments" className="desc">
+            No. Of Comments
+          </option>
+          <option value="votes" className="desc">
+            Highest Voted
+          </option>
         </select>
       </label>
     );
