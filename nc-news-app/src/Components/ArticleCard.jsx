@@ -1,11 +1,17 @@
 import React, { Component } from "react";
+import { Link } from "@reach/router";
 import Votes from "./Votes";
 
 export default class ArticleCard extends Component {
   render() {
     return (
       <div className="article_card">
-        <span className="article_title">{this.props.article.title}</span>
+        <Link
+          className="article_title"
+          to={`/articles/${this.props.article.topic}/${this.props.article.article_id}`}
+        >
+          <span>{this.props.article.title}</span>
+        </Link>
         <span className="article_topic">
           {this.props.capitalise(this.props.article.topic)}
         </span>
@@ -17,7 +23,10 @@ export default class ArticleCard extends Component {
             .replace("T", "  ")}
         </span>
         <span>Comments: {this.props.article.comment_count}</span>
-        <Votes article={this.props.article} />
+        <Votes
+          article={this.props.article}
+          checkUniqueVote={this.checkUniqueVote}
+        />
       </div>
     );
   }

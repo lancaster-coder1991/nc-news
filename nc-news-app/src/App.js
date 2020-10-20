@@ -3,13 +3,13 @@ import "./App.css";
 import Header from "./Components/Header";
 import NavBar from "./Components/NavBar";
 import ArticleList from "./Components/ArticleList";
+import ArticlePage from "./Components/ArticlePage";
 import { Router } from "@reach/router";
+import { convertToCapitalised } from "./utils/utils";
 
 class App extends React.Component {
-  state = {};
-
-  convertToCapitalised = (str) => {
-    return `${str.slice(0, 1).toUpperCase()}${str.slice(1)}`;
+  state = {
+    user: "jessjelly",
   };
 
   render() {
@@ -17,14 +17,20 @@ class App extends React.Component {
       <div className="App">
         <Header />
         <div id="nav_container">
-          <NavBar capitalise={this.convertToCapitalised} />
+          <NavBar capitalise={convertToCapitalised} />
         </div>
         <Router>
-          <ArticleList path={"/"} capitalise={this.convertToCapitalised} />
+          <ArticleList
+            path={"/"}
+            capitalise={convertToCapitalised}
+            checkUniqueVote={this.checkUniqueVote}
+          />
           <ArticleList
             path={"/topics/:topic"}
-            capitalise={this.convertToCapitalised}
+            capitalise={convertToCapitalised}
+            checkUniqueVote={this.checkUniqueVote}
           />
+          <ArticlePage path={"/articles/:topic/:article_id"} />
         </Router>
       </div>
     );

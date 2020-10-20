@@ -81,10 +81,21 @@ main {
   text-align: left;
   font-size: 1.4rem;
   grid-column: 1 / 4;
+  text-decoration: none;
 }
 
 /* sort by */
 
 select {
   margin-left: 2%;
+}
+
+/* article page */
+
+article {
+  text-align: left;
+}
+
+#article_page_votes {
+  color: green;
 }

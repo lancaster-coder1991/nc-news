@@ -1,4 +1,3 @@
-import axios from "axios";
 import React, { Component } from "react";
 import ArticleCard from "./ArticleCard";
 import SortBy from "./SortBy";
@@ -18,7 +17,6 @@ export default class ArticleList extends Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    const topicQuery = this.props.topic ? `topic=${this.props.topic}` : "";
     if (
       prevProps.topic !== this.props.topic ||
       prevState.sorting !== this.state.sorting ||
@@ -36,16 +34,18 @@ export default class ArticleList extends Component {
     return this.state.articles.map((article) => {
       return (
         <ArticleCard
-          key={article.id}
+          key={article.article_id}
           article={article}
           capitalise={this.props.capitalise}
+          checkUniqueVote={this.props.checkUniqueVote}
         />
       );
     });
   };
 
   renderTitle = () => {
-    if (this.props.topic) return <h2>{this.props.topic}</h2>;
+    if (this.props.topic)
+      return <h2>{this.props.capitalise(this.props.topic)}</h2>;
     else return <h2>All Articles</h2>;
   };
 
