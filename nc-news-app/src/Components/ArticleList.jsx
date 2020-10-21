@@ -17,6 +17,8 @@ export default class ArticleList extends Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
+    console.log("previous topic:", prevProps.topic);
+    console.log("this.props.topic:", this.props.topic);
     if (
       prevProps.topic !== this.props.topic ||
       prevState.sorting !== this.state.sorting ||
