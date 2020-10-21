@@ -22,6 +22,7 @@ class App extends React.Component {
         <Router>
           <ArticleList
             path={"/"}
+            topic={null}
             capitalise={convertToCapitalised}
             checkUniqueVote={this.checkUniqueVote}
           />

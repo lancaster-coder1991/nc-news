@@ -30,7 +30,7 @@ export default class ArticlePage extends Component {
           <span id="article_page_date">
             Date: {reformatDate(this.state.article.created_at)}
           </span>
-          <Votes data={this.state.article} />
+          <Votes class="article_page" data={this.state.article} />
         </main>
         <CommentList article={this.state.article} />
       </>

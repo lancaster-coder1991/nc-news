@@ -9,8 +9,7 @@ export default class Votes extends Component {
 
   updateVoteCount = (data) => {
     const id = data.comment_id ? data.comment_id : data.article_id;
-    const dataType = data.comment_id ? "comments" : "articles";
-    updateVotesById(id, dataType).then(() => {
+    updateVotesById(id, this.state.dataType).then(() => {
       this.setState((prevState) => {
         return { no_of_increments: prevState.no_of_increments + 1 };
       });
@@ -19,7 +18,7 @@ export default class Votes extends Component {
 
   render() {
     return (
-      <div className={`${this.state.dataType}_vote_component`}>
+      <div className={`${this.props.class}_vote_component`}>
         <span>
           Votes: {this.props.data.votes + this.state.no_of_increments}
         </span>

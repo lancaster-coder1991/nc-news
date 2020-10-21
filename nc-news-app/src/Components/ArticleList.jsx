@@ -11,26 +11,26 @@ export default class ArticleList extends Component {
   };
 
   componentDidMount() {
-    getArticles(null, this.state.sorting, this.state.order).then((res) => {
-      this.setState({ articles: res.data.articles });
-    });
+    this.fetchArticles();
   }
 
   componentDidUpdate(prevProps, prevState) {
-    console.log("previous topic:", prevProps.topic);
-    console.log("this.props.topic:", this.props.topic);
     if (
       prevProps.topic !== this.props.topic ||
       prevState.sorting !== this.state.sorting ||
       prevState.order !== this.state.order
     ) {
-      getArticles(this.props.topic, this.state.sorting, this.state.order).then(
-        (res) => {
-          this.setState({ articles: res.data.articles });
-        }
-      );
+      this.fetchArticles();
     }
   }
+
+  fetchArticles = () => {
+    getArticles(this.props.topic, this.state.sorting, this.state.order).then(
+      (res) => {
+        this.setState({ articles: res.data.articles });
+      }
+    );
+  };
 
   renderArticles = () => {
     return this.state.articles.map((article) => {
@@ -64,7 +64,7 @@ export default class ArticleList extends Component {
     return (
       <main>
         <header id="article_header">
-          <SortBy updateSorting={this.updateSorting} />
+          <SortBy class="articles" updateSorting={this.updateSorting} />
           {this.renderTitle()}
         </header>
         {this.renderArticles()}

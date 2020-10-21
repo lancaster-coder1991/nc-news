@@ -7,7 +7,7 @@ export default class ArticleCard extends Component {
     return (
       <div className="comment_card">
         <span className="comment_author">{this.props.comment.author}</span>
-        <Votes data={this.props.comment} />
+        <Votes class="comment_card" data={this.props.comment} />
         <span className="comment_body">{this.props.comment.body}</span>
         <span className="comment_created_at">
           {reformatDate(this.props.comment.created_at)}

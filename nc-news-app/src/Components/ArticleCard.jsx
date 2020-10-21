@@ -23,6 +23,7 @@ export default class ArticleCard extends Component {
         <span>Comments: {this.props.article.comment_count}</span>
         <Votes
           data={this.props.article}
+          class="article_card"
           checkUniqueVote={this.checkUniqueVote}
         />
       </div>

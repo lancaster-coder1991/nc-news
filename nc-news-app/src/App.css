@@ -3,6 +3,7 @@
 .App {
   text-align: center;
   font-family: "Inconsolata", monospace;
+  padding-bottom: 5%;
 }
 
 /* main page items */
@@ -90,7 +91,7 @@ main {
   text-align: right;
 }
 
-.articles_vote_component {
+.article_card_vote_component {
   text-align: right;
 }
 
@@ -133,6 +134,11 @@ select {
   grid-row: 4;
 }
 
+.article_page_vote_component {
+  text-align: right;
+  grid-row: 4;
+}
+
 article {
   text-align: left;
   grid-column: 1 / 4;
@@ -141,12 +147,20 @@ article {
 /* comments */
 
 #comment_list {
+  display: grid;
   margin: auto;
+  margin-top: 3%;
   width: 85%;
+  grid-template-columns: 1fr 1fr;
 }
 
 #comments_header {
   text-align: left;
+}
+
+.comments_sort_by {
+  text-align: right;
+  align-self: center;
 }
 
 .comment_card {
@@ -154,6 +168,7 @@ article {
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: repeat(2, auto);
   margin-bottom: 3%;
+  grid-column: 1/3;
 }
 
 .comment_author {
@@ -162,7 +177,7 @@ article {
   font-weight: bold;
 }
 
-.comments_vote_component {
+.comment_card_vote_component {
   text-align: right;
 }
 
@@ -179,4 +194,30 @@ article {
 
 .vote_button {
   margin-left: 1%;
+}
+
+#post_comment_form {
+  display: flex;
+  justify-content: center;
+  text-align: left;
+  grid-column: 1 /3;
+}
+
+/* #post_comment_label {
+  text-align: left;
+} */
+
+#post_comment_label {
+  margin-right: 1%;
+}
+
+#post_comment_input {
+  height: 100px;
+  width: 75%;
+  resize: none;
+  margin-right: 1%;
+}
+
+#post_comment_button {
+  width: 10%;
 }

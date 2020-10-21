@@ -22,6 +22,11 @@ export const updateVotesById = (id, dataType) => {
   return instance.patch(`/${dataType}/${id}`, { inc_votes: 1 });
 };
 
-export const getCommentsByArticleId = (article_id) => {
-  return instance.get(`articles/${article_id}/comments`);
+export const getCommentsByArticleId = (article_id, sort_by, order_by) => {
+  return instance.get(`articles/${article_id}/comments`, {
+    params: {
+      sort_by,
+      order_by,
+    },
+  });
 };
