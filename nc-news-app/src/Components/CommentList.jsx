@@ -58,9 +58,15 @@ export default class CommentList extends Component {
     });
   };
 
-  // addComment = (e) => {
-  //   axios.post(`https://georges-nc-news.herokuapp.com/api/articles/${this.props.article.article_id}/comments}`, {username: "jessjelly", body: e.target.value})
-  // }
+  addComment = () => {
+    console.log(this.props.article.article_id);
+    axios
+      .post(
+        `https://georges-nc-news.herokuapp.com/api/articles/${this.props.article.article_id}/comments`,
+        { username: "jessjelly", body: this.state.commentToAdd }
+      )
+      .then(() => this.fetchComments());
+  };
 
   render() {
     if (this.state.isLoading) return <div>Loading</div>;
@@ -69,7 +75,13 @@ export default class CommentList extends Component {
         <h3 id="comments_header">Comments</h3>
         <SortBy updateSorting={this.updateSorting} class="comments" />
         {this.renderComments()}
-        <form id="post_comment_form" action="">
+        <form
+          id="post_comment_form"
+          onSubmit={(event) => {
+            event.preventDefault();
+            this.addComment();
+          }}
+        >
           <h4 id="post_comment_label">Post Comment:</h4>
 
           <textarea

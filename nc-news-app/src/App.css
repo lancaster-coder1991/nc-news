@@ -219,5 +219,7 @@ article {
 }
 
 #post_comment_button {
+  align-self: center;
+  height: 50px;
   width: 10%;
 }
