@@ -1,26 +1,34 @@
 import React, { Component } from "react";
-import { updateArticleVotesById } from "../axios";
+import { updateVotesById } from "../axios";
 
 export default class Votes extends Component {
   state = {
     no_of_increments: 0,
+    dataType: this.props.data.comment_id ? "comments" : "articles",
   };
 
-  updateVoteCount = () => {
-    updateArticleVotesById(this.props.article.article_id).then(() => {
+  updateVoteCount = (data) => {
+    const id = data.comment_id ? data.comment_id : data.article_id;
+    const dataType = data.comment_id ? "comments" : "articles";
+    updateVotesById(id, dataType).then(() => {
       this.setState((prevState) => {
-        return { no_of_increments: prevState.no_of_increments++ };
+        return { no_of_increments: prevState.no_of_increments + 1 };
       });
     });
   };
 
   render() {
     return (
-      <div>
+      <div className={`${this.state.dataType}_vote_component`}>
         <span>
-          Votes: {this.props.article.votes + this.state.no_of_increments}
+          Votes: {this.props.data.votes + this.state.no_of_increments}
         </span>
-        <button onClick={this.updateVoteCount}>Vote!</button>
+        <button
+          className="vote_button"
+          onClick={() => this.updateVoteCount(this.props.data)}
+        >
+          Vote!
+        </button>
       </div>
     );
   }

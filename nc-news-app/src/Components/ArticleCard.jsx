@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "@reach/router";
 import Votes from "./Votes";
+import { reformatDate } from "../utils/utils";
 
 export default class ArticleCard extends Component {
   render() {
@@ -17,14 +18,11 @@ export default class ArticleCard extends Component {
         </span>
         <span className="article_author">{`Author:${this.props.article.author}`}</span>
         <span className="article_created_at">
-          {this.props.article.created_at
-            .toString()
-            .replace(/:\d{2}\.\d{3}Z/, "")
-            .replace("T", "  ")}
+          {reformatDate(this.props.article.created_at)}
         </span>
         <span>Comments: {this.props.article.comment_count}</span>
         <Votes
-          article={this.props.article}
+          data={this.props.article}
           checkUniqueVote={this.checkUniqueVote}
         />
       </div>

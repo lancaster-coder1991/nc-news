@@ -5,7 +5,6 @@ import { Link } from "@reach/router";
 export default class NavBar extends Component {
   state = {
     topics: [],
-    selected: "",
   };
 
   componentDidMount() {

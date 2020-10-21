@@ -18,6 +18,10 @@ export const getArticleById = (article_id) => {
   return instance.get(`/articles/${article_id}`);
 };
 
-export const updateArticleVotesById = (article_id) => {
-  return instance.patch(`/articles/${article_id}`, { inc_votes: 1 });
+export const updateVotesById = (id, dataType) => {
+  return instance.patch(`/${dataType}/${id}`, { inc_votes: 1 });
+};
+
+export const getCommentsByArticleId = (article_id) => {
+  return instance.get(`articles/${article_id}/comments`);
 };
