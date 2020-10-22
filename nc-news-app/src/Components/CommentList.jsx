@@ -15,6 +15,7 @@ export default class CommentList extends Component {
     commentToAdd: "",
     isLoading: true,
     user: "jessjelly",
+    errorMsg: "",
   };
 
   componentDidMount() {
@@ -68,10 +69,17 @@ export default class CommentList extends Component {
   };
 
   addComment = () => {
-    createCommentByArticleId(
-      this.props.article.article_id,
-      this.state.commentToAdd
-    ).then(() => this.fetchComments());
+    if (!this.state.commentToAdd) {
+      this.setState({ errorMsg: "Please enter a comment!" });
+    } else {
+      createCommentByArticleId(
+        this.props.article.article_id,
+        this.state.commentToAdd
+      ).then(() => {
+        this.fetchComments();
+        this.setState({ errorMsg: "" });
+      });
+    }
   };
 
   deleteComment = (comment_id) => {
@@ -103,6 +111,7 @@ export default class CommentList extends Component {
           >
             Post
           </button>
+          <div id="comment_error_msg">{this.state.errorMsg}</div>
         </form>
       </div>
     );

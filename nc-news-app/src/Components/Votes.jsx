@@ -23,7 +23,7 @@ export default class Votes extends Component {
         [statePropToChange]: !prevState[statePropToChange],
       };
     });
-    updateVotesById(id, this.state.dataType);
+    updateVotesById(id, this.state.dataType, actualIncrement);
   };
 
   render() {

@@ -4,22 +4,38 @@ const instance = axios.create({
   baseURL: "https://georges-nc-news.herokuapp.com/api",
 });
 
+export const checkTopics = () => {};
+
 export const getArticles = (topic, sort_by, order_by) => {
-  return instance.get("/articles", {
-    params: {
-      topic,
-      sort_by,
-      order_by,
-    },
-  });
+  return instance
+    .get("/topics")
+    .then((topics) => {
+      if (
+        topic &&
+        !topics.data.topics.find((topicEl) => topicEl.slug === topic)
+      ) {
+        return Promise.reject({
+          response: { status: 404, data: { msg: "Topic not found" } },
+        });
+      }
+    })
+    .then(() => {
+      return instance.get("/articles", {
+        params: {
+          topic,
+          sort_by,
+          order_by,
+        },
+      });
+    });
 };
 
 export const getArticleById = (article_id) => {
   return instance.get(`/articles/${article_id}`);
 };
 
-export const updateVotesById = (id, dataType) => {
-  return instance.patch(`/${dataType}/${id}`, { inc_votes: 1 });
+export const updateVotesById = (id, dataType, increment) => {
+  return instance.patch(`/${dataType}/${id}`, { inc_votes: increment });
 };
 
 export const getCommentsByArticleId = (article_id, sort_by, order_by) => {

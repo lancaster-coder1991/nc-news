@@ -28,6 +28,7 @@ export default class ArticleList extends Component {
   }
 
   fetchArticles = () => {
+    this.setState({ isLoading: true });
     getArticles(this.props.topic, this.state.sorting, this.state.order)
       .then((res) => {
         this.setState({ articles: res.data.articles, isLoading: false });

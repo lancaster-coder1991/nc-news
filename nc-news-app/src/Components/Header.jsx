@@ -7,7 +7,7 @@ export default function Header(props) {
     <>
       <header id="main_header">
         <Link id="icon_link" to="/">
-          <img onClick={props.setTopic} src={logo} alt="news_icon" />
+          <img src={logo} alt="news_icon" />
         </Link>
         <h1 className="page_title">NC News</h1>
       </header>
