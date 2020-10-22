@@ -5,15 +5,25 @@ export default class Votes extends Component {
   state = {
     no_of_increments: 0,
     dataType: this.props.data.comment_id ? "comments" : "articles",
+    hasUpVoted: false,
+    hasDownVoted: false,
   };
 
-  updateVoteCount = (data) => {
+  updateVoteCount = (data, increment) => {
     const id = data.comment_id ? data.comment_id : data.article_id;
-    updateVotesById(id, this.state.dataType).then(() => {
-      this.setState((prevState) => {
-        return { no_of_increments: prevState.no_of_increments + 1 };
-      });
+    const statePropToChange = increment === 1 ? "hasUpVoted" : "hasDownVoted";
+    const actualIncrement =
+      (increment === 1 && this.state.hasUpVoted) ||
+      (increment === -1 && this.state.hasDownVoted)
+        ? increment * -1
+        : increment;
+    this.setState((prevState) => {
+      return {
+        no_of_increments: prevState.no_of_increments + actualIncrement,
+        [statePropToChange]: !prevState[statePropToChange],
+      };
     });
+    updateVotesById(id, this.state.dataType);
   };
 
   render() {
@@ -23,10 +33,16 @@ export default class Votes extends Component {
           Votes: {this.props.data.votes + this.state.no_of_increments}
         </span>
         <button
-          className="vote_button"
-          onClick={() => this.updateVoteCount(this.props.data)}
+          className="up_vote_button"
+          onClick={() => this.updateVoteCount(this.props.data, 1)}
         >
-          Vote!
+          Vote Up
+        </button>
+        <button
+          className="down_vote_button"
+          onClick={() => this.updateVoteCount(this.props.data, -1)}
+        >
+          Vote Down
         </button>
       </div>
     );

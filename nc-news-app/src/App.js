@@ -6,6 +6,7 @@ import ArticleList from "./Components/ArticleList";
 import ArticlePage from "./Components/ArticlePage";
 import { Router } from "@reach/router";
 import { convertToCapitalised } from "./utils/utils";
+import ErrorDisplay from "./Components/ErrorDisplay";
 
 class App extends React.Component {
   state = {
@@ -32,6 +33,7 @@ class App extends React.Component {
             checkUniqueVote={this.checkUniqueVote}
           />
           <ArticlePage path={"/articles/:topic/:article_id"} />
+          <ErrorDisplay default status={404} message="Path not found" />
         </Router>
       </div>
     );

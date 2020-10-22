@@ -2,12 +2,15 @@ import React, { Component } from "react";
 import ArticleCard from "./ArticleCard";
 import SortBy from "./SortBy";
 import { getArticles } from "../axios";
+import ErrorDisplay from "./ErrorDisplay";
 
 export default class ArticleList extends Component {
   state = {
     sorting: "created_at",
     order: "desc",
     articles: [],
+    error: null,
+    isLoading: true,
   };
 
   componentDidMount() {
@@ -25,11 +28,19 @@ export default class ArticleList extends Component {
   }
 
   fetchArticles = () => {
-    getArticles(this.props.topic, this.state.sorting, this.state.order).then(
-      (res) => {
-        this.setState({ articles: res.data.articles });
-      }
-    );
+    getArticles(this.props.topic, this.state.sorting, this.state.order)
+      .then((res) => {
+        this.setState({ articles: res.data.articles, isLoading: false });
+      })
+      .catch(({ response }) => {
+        this.setState({
+          error: {
+            status: response.status,
+            message: response.data.msg,
+          },
+          isLoading: false,
+        });
+      });
   };
 
   renderArticles = () => {
@@ -61,6 +72,10 @@ export default class ArticleList extends Component {
   };
 
   render() {
+    const { error } = this.state;
+    if (this.state.isLoading) return <div>Loading...</div>;
+    if (this.state.error)
+      return <ErrorDisplay status={error.status} message={error.message} />;
     return (
       <main>
         <header id="article_header">
