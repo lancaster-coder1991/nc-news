@@ -9,7 +9,7 @@ import { convertToCapitalised } from "./utils/utils";
 
 class App extends React.Component {
   state = {
-    user: "jessjelly",
+    // user: "jessjelly",
   };
 
   render() {

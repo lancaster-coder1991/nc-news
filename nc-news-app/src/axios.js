@@ -30,3 +30,14 @@ export const getCommentsByArticleId = (article_id, sort_by, order_by) => {
     },
   });
 };
+
+export const createCommentByArticleId = (article_id, body) => {
+  return instance.post(`articles/${article_id}/comments`, {
+    username: "jessjelly",
+    body,
+  });
+};
+
+export const deleteCommentByArticleId = (comment_id) => {
+  return instance.delete(`comments/${comment_id}`);
+};

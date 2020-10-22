@@ -1,6 +1,9 @@
-import axios from "axios";
 import React, { Component } from "react";
-import { getCommentsByArticleId } from "../axios";
+import {
+  getCommentsByArticleId,
+  createCommentByArticleId,
+  deleteCommentByArticleId,
+} from "../axios";
 import CommentCard from "./CommentCard";
 import SortBy from "./SortBy";
 
@@ -11,6 +14,7 @@ export default class CommentList extends Component {
     order: "desc",
     commentToAdd: "",
     isLoading: true,
+    user: "jessjelly",
   };
 
   componentDidMount() {
@@ -19,7 +23,7 @@ export default class CommentList extends Component {
 
   componentDidUpdate(prevProps, prevState) {
     if (
-      prevProps.article_id !== this.props.article_id ||
+      prevProps.article.article_id !== this.props.article.article_id ||
       prevState.sorting !== this.state.sorting ||
       prevState.order !== this.state.order
     )
@@ -38,7 +42,14 @@ export default class CommentList extends Component {
 
   renderComments = () => {
     return this.state.comments.map((comment) => {
-      return <CommentCard key={comment.comment_id} comment={comment} />;
+      return (
+        <CommentCard
+          key={comment.comment_id}
+          comment={comment}
+          user={this.state.user}
+          delete={this.deleteComment}
+        />
+      );
     });
   };
 
@@ -53,19 +64,18 @@ export default class CommentList extends Component {
 
   updateNewComment = (e) => {
     const commentToAdd = e.target.value;
-    this.setState({ commentToAdd }, () => {
-      console.log(this.state.commentToAdd);
-    });
+    this.setState({ commentToAdd });
   };
 
   addComment = () => {
-    console.log(this.props.article.article_id);
-    axios
-      .post(
-        `https://georges-nc-news.herokuapp.com/api/articles/${this.props.article.article_id}/comments`,
-        { username: "jessjelly", body: this.state.commentToAdd }
-      )
-      .then(() => this.fetchComments());
+    createCommentByArticleId(
+      this.props.article.article_id,
+      this.state.commentToAdd
+    ).then(() => this.fetchComments());
+  };
+
+  deleteComment = (comment_id) => {
+    deleteCommentByArticleId(comment_id).then(() => this.fetchComments());
   };
 
   render() {
@@ -75,21 +85,22 @@ export default class CommentList extends Component {
         <h3 id="comments_header">Comments</h3>
         <SortBy updateSorting={this.updateSorting} class="comments" />
         {this.renderComments()}
-        <form
-          id="post_comment_form"
-          onSubmit={(event) => {
-            event.preventDefault();
-            this.addComment();
-          }}
-        >
+        <form id="post_comment_form">
           <h4 id="post_comment_label">Post Comment:</h4>
-
           <textarea
             id="post_comment_input"
             type="text"
             onChange={this.updateNewComment}
+            value={this.state.commentToAdd}
           />
-          <button id="post_comment_button" type="submit">
+          <button
+            id="post_comment_button"
+            type="button"
+            onClick={() => {
+              this.addComment();
+              this.setState({ commentToAdd: "" });
+            }}
+          >
             Post
           </button>
         </form>
