@@ -316,3 +316,10 @@ article {
   font-size: 1.3rem;
   margin-top: 3%;
 }
+
+/* paginator */
+
+#comment_pagination_buttons {
+  text-align: left;
+  margin-bottom: 3%;
+}

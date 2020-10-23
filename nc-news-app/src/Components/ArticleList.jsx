@@ -100,6 +100,7 @@ export default class ArticleList extends Component {
           updatePage={this.updatePage}
           type={"articles"}
           currentPage={this.state.page}
+          topic={this.props.topic}
         />
       </main>
     );

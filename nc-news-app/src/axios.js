@@ -39,11 +39,12 @@ export const updateVotesById = (id, dataType, increment) => {
   return instance.patch(`/${dataType}/${id}`, { inc_votes: increment });
 };
 
-export const getCommentsByArticleId = (article_id, sort_by, order_by) => {
+export const getCommentsByArticleId = (article_id, sort_by, order_by, p) => {
   return instance.get(`/articles/${article_id}/comments`, {
     params: {
       sort_by,
       order_by,
+      p,
     },
   });
 };
@@ -59,6 +60,12 @@ export const deleteCommentByArticleId = (comment_id) => {
   return instance.delete(`/comments/${comment_id}`);
 };
 
-export const checkNoArticlePages = () => {
-  return instance.get(`/articles`);
+export const checkNoArticlePages = (topic, type, article_id) => {
+  const path =
+    type === "articles" ? "/articles" : `/articles/${article_id}/comments`;
+  return instance.get(path, {
+    params: {
+      topic,
+    },
+  });
 };

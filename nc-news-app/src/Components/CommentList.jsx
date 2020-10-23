@@ -5,6 +5,7 @@ import {
   deleteCommentByArticleId,
 } from "../axios";
 import CommentCard from "./CommentCard";
+import Pagination from "./Pagination";
 import SortBy from "./SortBy";
 
 export default class CommentList extends Component {
@@ -16,6 +17,7 @@ export default class CommentList extends Component {
     isLoading: true,
     user: "jessjelly",
     errorMsg: "",
+    page: 1,
   };
 
   componentDidMount() {
@@ -26,7 +28,8 @@ export default class CommentList extends Component {
     if (
       prevProps.article.article_id !== this.props.article.article_id ||
       prevState.sorting !== this.state.sorting ||
-      prevState.order !== this.state.order
+      prevState.order !== this.state.order ||
+      prevState.page !== this.state.page
     )
       this.fetchComments();
   }
@@ -35,7 +38,8 @@ export default class CommentList extends Component {
     getCommentsByArticleId(
       this.props.article.article_id,
       this.state.sorting,
-      this.state.order
+      this.state.order,
+      this.state.page
     ).then((comments) => {
       this.setState({ comments: comments.data.comments, isLoading: false });
     });
@@ -82,6 +86,10 @@ export default class CommentList extends Component {
     }
   };
 
+  updatePage = (page) => {
+    this.setState({ page });
+  };
+
   deleteComment = (comment_id) => {
     deleteCommentByArticleId(comment_id).then(() => this.fetchComments());
   };
@@ -93,6 +101,15 @@ export default class CommentList extends Component {
         <h3 id="comments_header">Comments</h3>
         <SortBy updateSorting={this.updateSorting} class="comments" />
         {this.renderComments()}
+        <div id="comment_pagination_buttons">
+          <Pagination
+            updatePage={this.updatePage}
+            type={"comments"}
+            currentPage={this.state.page}
+            noOfComments={this.state.comments.length}
+            articleId={this.props.article.article_id}
+          />
+        </div>
         <form id="post_comment_form">
           <h4 id="post_comment_label">Post Comment:</h4>
           <textarea

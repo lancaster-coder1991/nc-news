@@ -7,8 +7,12 @@ export default class Pagination extends Component {
   };
 
   componentDidMount() {
-    checkNoArticlePages().then((res) => {
-      this.setState({ pages: Math.ceil(res.data.articles.length / 5) });
+    checkNoArticlePages(
+      this.props.topic,
+      this.props.type,
+      this.props.articleId
+    ).then((res) => {
+      this.setState({ pages: Math.ceil(res.data[this.props.type].length / 5) });
     });
   }
 
