@@ -32,7 +32,10 @@ class App extends React.Component {
             capitalise={convertToCapitalised}
             checkUniqueVote={this.checkUniqueVote}
           />
-          <ArticlePage path={"/articles/:topic/:article_id"} />
+          <ArticlePage
+            path={"/articles/:topic/:article_id"}
+            capitalise={convertToCapitalised}
+          />
           <ErrorDisplay default status={404} message="Path not found" />
         </Router>
       </div>

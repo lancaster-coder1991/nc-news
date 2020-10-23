@@ -37,8 +37,11 @@ export default class ArticlePage extends Component {
       <>
         <main id="article_main">
           <h2 id="article_page_title">{this.state.article.title}</h2>
-          <span className={`article_topic_${this.state.article.topic}`}>
-            {this.state.article.topic}
+          <span
+            id="article_page_topic"
+            className={`article_topic_${this.state.article.topic}`}
+          >
+            {this.props.capitalise(this.state.article.topic)}
           </span>
           <article>{this.state.article.body}</article>
           <div id="article_page_blank"></div>

@@ -39,7 +39,11 @@ export default class ArticleList extends Component {
       this.state.page
     )
       .then((res) => {
-        this.setState({ articles: res.data.articles, isLoading: false });
+        this.setState({
+          articles: res.data.articles,
+          isLoading: false,
+          error: null,
+        });
       })
       .catch(({ response }) => {
         this.setState({
