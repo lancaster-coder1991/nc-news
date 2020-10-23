@@ -69,8 +69,6 @@ export default class ArticleList extends Component {
     });
   };
 
-  // "build": "react-scripts build",
-
   renderTitle = () => {
     if (this.props.topic)
       return <h2>{this.props.capitalise(this.props.topic)}</h2>;
