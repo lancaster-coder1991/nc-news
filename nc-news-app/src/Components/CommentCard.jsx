@@ -7,6 +7,7 @@ export default class CommentCard extends Component {
   state = {
     editing: false,
     updatedComment: "",
+    edited: false,
   };
 
   showDeleteAndEditButtons = () => {
@@ -45,9 +46,8 @@ export default class CommentCard extends Component {
               this.setState({ updatedComment: e.target.value });
             }}
             id="edit_comment_textarea"
-          >
-            {this.props.comment.body}
-          </textarea>
+            defaultValue={this.props.comment.body}
+          ></textarea>
           <div className="edit_comment_buttons">
             <button
               onClick={() => {
@@ -55,7 +55,7 @@ export default class CommentCard extends Component {
                   this.props.comment.comment_id,
                   this.state.updatedComment
                 ).then(() => {
-                  this.setState({ editing: false });
+                  this.setState({ editing: false, edited: true });
                   this.props.fetchComments();
                 });
               }}

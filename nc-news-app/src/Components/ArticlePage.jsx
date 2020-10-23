@@ -37,14 +37,18 @@ export default class ArticlePage extends Component {
       <>
         <main id="article_main">
           <h2 id="article_page_title">{this.state.article.title}</h2>
-          <span id="article_page_author">
-            Author: {this.state.article.author}
+          <span className={`article_topic_${this.state.article.topic}`}>
+            {this.state.article.topic}
           </span>
           <article>{this.state.article.body}</article>
           <div id="article_page_blank"></div>
+          <span id="article_page_author">
+            Author: {this.state.article.author}
+          </span>
           <span id="article_page_date">
             Date: {reformatDate(this.state.article.created_at)}
           </span>
+
           <Votes class="article_page" data={this.state.article} />
         </main>
         <CommentList article={this.state.article} />

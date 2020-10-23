@@ -96,12 +96,14 @@ export default class ArticleList extends Component {
           {this.renderTitle()}
         </header>
         {this.renderArticles()}
-        <Pagination
-          updatePage={this.updatePage}
-          type={"articles"}
-          currentPage={this.state.page}
-          topic={this.props.topic}
-        />
+        <div id="article_pagination_buttons">
+          <Pagination
+            updatePage={this.updatePage}
+            type={"articles"}
+            currentPage={this.state.page}
+            topic={this.props.topic}
+          />
+        </div>
       </main>
     );
   }

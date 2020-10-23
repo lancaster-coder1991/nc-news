@@ -13,7 +13,7 @@ export default class ArticleCard extends Component {
         >
           <span>{this.props.article.title}</span>
         </Link>
-        <span className="article_topic">
+        <span className={`article_topic_${this.props.article.topic}`}>
           {this.props.capitalise(this.props.article.topic)}
         </span>
         <span className="article_author">{`Author:${this.props.article.author}`}</span>
