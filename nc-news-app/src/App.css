@@ -275,7 +275,7 @@ article {
   margin-left: 1%;
 }
 
-.comment_card_delete {
+.user_comment_buttons {
   grid-column: 3 / 4;
   width: 30%;
   justify-self: flex-end;
@@ -308,6 +308,18 @@ article {
 
 #comment_error_msg {
   text-align: center;
+}
+
+#edit_comment_textarea {
+  margin-top: 1%;
+  height: 8vh;
+  resize: none;
+  grid-column: 1 / 4;
+  margin-bottom: 1%;
+}
+
+.edit_comment_buttons {
+  text-align: left;
 }
 
 /* error message */

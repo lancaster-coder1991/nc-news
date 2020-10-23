@@ -49,6 +49,7 @@ export default class CommentList extends Component {
     return this.state.comments.map((comment) => {
       return (
         <CommentCard
+          fetchComments={this.fetchComments}
           key={comment.comment_id}
           comment={comment}
           user={this.state.user}

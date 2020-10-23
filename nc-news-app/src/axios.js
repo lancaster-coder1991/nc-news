@@ -39,6 +39,10 @@ export const updateVotesById = (id, dataType, increment) => {
   return instance.patch(`/${dataType}/${id}`, { inc_votes: increment });
 };
 
+export const updateCommentBody = (comment_id, body) => {
+  return instance.patch(`/comments/${comment_id}`, { body });
+};
+
 export const getCommentsByArticleId = (article_id, sort_by, order_by, p) => {
   return instance.get(`/articles/${article_id}/comments`, {
     params: {
