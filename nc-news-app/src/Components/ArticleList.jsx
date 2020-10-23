@@ -3,6 +3,7 @@ import ArticleCard from "./ArticleCard";
 import SortBy from "./SortBy";
 import { getArticles } from "../axios";
 import ErrorDisplay from "./ErrorDisplay";
+import Pagination from "./Pagination";
 
 export default class ArticleList extends Component {
   state = {
@@ -11,6 +12,7 @@ export default class ArticleList extends Component {
     articles: [],
     error: null,
     isLoading: true,
+    page: 1,
   };
 
   componentDidMount() {
@@ -21,7 +23,8 @@ export default class ArticleList extends Component {
     if (
       prevProps.topic !== this.props.topic ||
       prevState.sorting !== this.state.sorting ||
-      prevState.order !== this.state.order
+      prevState.order !== this.state.order ||
+      prevState.page !== this.state.page
     ) {
       this.fetchArticles();
     }
@@ -29,7 +32,12 @@ export default class ArticleList extends Component {
 
   fetchArticles = () => {
     this.setState({ isLoading: true });
-    getArticles(this.props.topic, this.state.sorting, this.state.order)
+    getArticles(
+      this.props.topic,
+      this.state.sorting,
+      this.state.order,
+      this.state.page
+    )
       .then((res) => {
         this.setState({ articles: res.data.articles, isLoading: false });
       })
@@ -72,6 +80,10 @@ export default class ArticleList extends Component {
     this.setState({ sorting, order });
   };
 
+  updatePage = (page) => {
+    this.setState({ page });
+  };
+
   render() {
     const { error } = this.state;
     if (this.state.isLoading) return <div>Loading...</div>;
@@ -84,6 +96,11 @@ export default class ArticleList extends Component {
           {this.renderTitle()}
         </header>
         {this.renderArticles()}
+        <Pagination
+          updatePage={this.updatePage}
+          type={"articles"}
+          currentPage={this.state.page}
+        />
       </main>
     );
   }

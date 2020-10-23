@@ -6,7 +6,7 @@ const instance = axios.create({
 
 export const checkTopics = () => {};
 
-export const getArticles = (topic, sort_by, order_by) => {
+export const getArticles = (topic, sort_by, order_by, p) => {
   return instance
     .get("/topics")
     .then((topics) => {
@@ -25,6 +25,7 @@ export const getArticles = (topic, sort_by, order_by) => {
           topic,
           sort_by,
           order_by,
+          p,
         },
       });
     });
@@ -39,7 +40,7 @@ export const updateVotesById = (id, dataType, increment) => {
 };
 
 export const getCommentsByArticleId = (article_id, sort_by, order_by) => {
-  return instance.get(`articles/${article_id}/comments`, {
+  return instance.get(`/articles/${article_id}/comments`, {
     params: {
       sort_by,
       order_by,
@@ -48,12 +49,16 @@ export const getCommentsByArticleId = (article_id, sort_by, order_by) => {
 };
 
 export const createCommentByArticleId = (article_id, body) => {
-  return instance.post(`articles/${article_id}/comments`, {
+  return instance.post(`/articles/${article_id}/comments`, {
     username: "jessjelly",
     body,
   });
 };
 
 export const deleteCommentByArticleId = (comment_id) => {
-  return instance.delete(`comments/${comment_id}`);
+  return instance.delete(`/comments/${comment_id}`);
+};
+
+export const checkNoArticlePages = () => {
+  return instance.get(`/articles`);
 };
