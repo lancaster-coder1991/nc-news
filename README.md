@@ -10,16 +10,14 @@ Clone this repo to a local directory, ensuring that you have [Node.js](https://n
 
 `npm start`
 
-The app should automatically open in a web browser.
-
 ## Finding your way around
 
 ### Sorting through articles
 
-The home page lists all articles by default, sorted by most recent first, and can always be returned to by clicking the logo in the top left hand corner of the screen. Pagination buttons are dusplayedbelow the article list. The sorting can be changed using the drop down menu above the article list. Filtering of a particular topic can be done using the NavBar options.
+The home page lists all articles by default, sorted by most recent first, and can always be returned to by clicking the logo in the top left hand corner of the screen. Pagination buttons are displayed below the article list. The sorting can be changed using the drop down menu above the article list. Filtering of a particular topic can be done using the NavBar options.
 
 Each article can be voted upon on this screen, or on the article page itself.
 
 ### Article pages
 
-Clicking on the title of an article takes you to the page for that article. This shows the article content, plus all of the comments relating to the article. The sorting logic and options for the comments is the same as for articles (minus the 'No. of comments' option present for the article list). As well as the article itslef, comments can be voted upon as well. At the botttom of the page, new comments can be added, and any comments added in your session can also be edited after they are submitted.
+Clicking on the title of an article takes you to the page for that article. This shows the article content, plus all of the comments relating to the article. The sorting logic and options for the comments is the same as for articles (minus the 'No. of comments' option present for the article list). As well as the article itself, comments can be voted upon here too. At the botttom of the page, new comments can be added, and any comments added in your session can also be edited after they are posted.
