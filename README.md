@@ -4,6 +4,8 @@ NC News is a full stack project based around a news forum. The back and front en
 
 ## Running the app
 
+This app is hosted live on Netlify [here](https://george-scott-news.netlify.app/). If you would instead like to run the application locally, follow the instructions below.
+
 Clone this repo to a local directory, ensuring that you have [Node.js](https://nodejs.org/en/download/) installed. Navigate to the nc-news-app directory and run the following commands in the terminal (in the order shown). These will first install the required dependencies for the application, and then open the app in a browser.
 
 `npm i`
